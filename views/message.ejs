@@ -1,7 +1,9 @@
-<div class="message">
-  <div class="message-header">
-    <span class="message-author"><%= message.user %></span>
-    <span class="message-time"><%= message.added.toLocaleString() %></span>
+<a href="/details/<%= message.id %>" style="text-decoration: none">
+  <div class="message">
+    <div class="message-header">
+      <span class="message-author"><%= message.user %></span>
+      <span class="message-time"><%= message.added.toLocaleString() %></span>
+    </div>
+    <p class="message-text"><%= message.text %></p>
   </div>
-  <p class="message-text"><%= message.text %></p>
-</div>
+</a>

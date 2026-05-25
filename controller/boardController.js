@@ -15,7 +15,12 @@ const getForm = (req, res) => {
 const postMessage = (req, res) => {
   const { user, text } = req.body;
   if (user && text) {
-    handlePostMessage({ user, text, added: new Date() });
+    handlePostMessage({
+      user,
+      text,
+      added: new Date(),
+      id: messages.length + 1,
+    });
     res.redirect("/");
   } else {
     res.status(400).send("User name and message are required.");
