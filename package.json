@@ -4,7 +4,8 @@
     "express": "^5.2.1"
   },
   "scripts": {
-    "watch": "node --watch app.js"
+    "start": "node index.js",
+    "watch": "node --watch index.js"
   },
   "type": "commonjs"
 }
