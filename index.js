@@ -13,5 +13,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/',boardRouter)
 
 app.listen(PORT, HOST, () => {
-  console.log(`Server is running on http://${LOCAL_HOST}:${PORT}`);
+  console.log(`Server is running on http://${HOST}:${PORT}`);
 });
