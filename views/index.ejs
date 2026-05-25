@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0e0e0e;
+      --surface: #161616;
+      --border:  #2a2a2a;
+      --accent:  #c8f04d;
+      --text:    #e8e8e0;
+      --muted:   #666;
+      --serif:   'DM Serif Display', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(14,14,14,.85);
+      backdrop-filter: blur(12px);
+    }
+
+    nav .logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    nav a.btn {
+      display: inline-block;
+      padding: .55rem 1.4rem;
+      background: var(--accent);
+      color: #0e0e0e;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: opacity .2s;
+    }
+
+    nav a.btn:hover { opacity: .8; }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: .5rem;
+    }
+
+    .page-title em { font-style: italic; color: var(--accent); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── MESSAGES ── */
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .message {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.4rem 1.6rem;
+      transition: background .2s;
+    }
+
+    .message:hover { background: #1a1a1a; }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: .6rem;
+    }
+
+    .message-author {
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .message-time {
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    .message-text {
+      font-size: .95rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 5rem 2rem;
+      border: 1px dashed var(--border);
+    }
+
+    .empty p {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .empty a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    @media (max-width: 540px) {
+      nav { padding: 1rem 1.25rem; }
+      main { padding-top: 7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="/">Board</a>
+    <a class="btn" href="/new">+ New message</a>
+  </nav>
+
+  <main>
+    <h1 class="page-title">What's on<br><em>people's minds.</em></h1>
+    <p class="subtitle">A quiet corner of the internet.</p>
+    <div class="messages" id="messages">
+        <% if (messages.length === 0) { %>
+            <div class="empty">
+            <p>No messages yet. Be the first.</p>
+            <a href="/new">Post something →</a>
+            </div>
+        <% } %>
+        <% if(messages.length > 0) { %>
+        <% messages.forEach(element => { %>
+         <%- include('message',{message:element}) %>
+        <% }) %>
+        <% } %>
+    </div>
+
+  </main>
+
+</body>
+</html>

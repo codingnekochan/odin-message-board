@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message — Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0e0e0e;
+        --surface: #161616;
+        --border: #2a2a2a;
+        --accent: #c8f04d;
+        --text: #e8e8e0;
+        --muted: #666;
+        --serif: "DM Serif Display", Georgia, serif;
+        --sans: "DM Sans", system-ui, sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-weight: 300;
+        min-height: 100vh;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 3rem;
+        border-bottom: 1px solid var(--border);
+        background: rgba(14, 14, 14, 0.85);
+        backdrop-filter: blur(12px);
+      }
+
+      nav .logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      nav a.back {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      nav a.back:hover {
+        color: var(--text);
+      }
+
+      /* ── LAYOUT ── */
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 8rem 2rem 4rem;
+      }
+
+      /* ── MESSAGE CARD ── */
+      .card {
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 1.6rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .author {
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .time {
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .card-body {
+        padding: 2rem 1.6rem;
+      }
+
+      .card-body p {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: var(--text);
+      }
+
+      /* ── ACTIONS ── */
+      .actions {
+        display: flex;
+        gap: 1px;
+        margin-top: 1px;
+      }
+
+      .actions a {
+        flex: 1;
+        display: block;
+        text-align: center;
+        padding: 0.9rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .actions a:hover {
+        background: #1e1e1e;
+        color: var(--text);
+      }
+
+      .actions a.delete:hover {
+        color: #ff6b6b;
+      }
+
+      @media (max-width: 540px) {
+        nav {
+          padding: 1rem 1.25rem;
+        }
+        main {
+          padding-top: 7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('nav')>
+
+    <main>
+      <div class="card">
+        <div class="card-header">
+          <span class="author"><%= message.user %></span>
+          <span class="time"><%= message.added.toLocaleString() %></span>
+        </div>
+        <div class="card-body">
+          <p><%= message.text %></p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="/messages/1/edit">Edit</a>
+        <a href="/" class="delete">Delete</a>
+      </div>
+    </main>
+  </body>
+</html>
