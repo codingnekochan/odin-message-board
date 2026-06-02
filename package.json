@@ -1,12 +1,22 @@
 {
-  "dependencies": {
-    "ejs": "^5.0.2",
-    "express": "^5.2.1"
-  },
+  "name": "message-board",
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
     "start": "node index.js",
-    "watch": "node --watch index.js"
+    "watch": "node --env-file=.env.dev --watch index.js",
+    "seed": "node --env-file=.env.dev model/seed.js",
+    "seed:prod": "node --env-file=.env.prod seed/seed.js"
   },
   "type": "commonjs",
-  "main": "index.js"
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "pg": "^8.21.0"
+  }
 }

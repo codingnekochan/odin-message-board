@@ -1,10 +1,7 @@
-const {
-  handlePostMessage,
-  handleGetMessageDetails,
-} = require("../services/boardService");
-const messages = require("../model/messages");
+const db = require("../model/queries");
 
-const getHome = (req, res) => {
+const getHome = async (req, res) => {
+  const messages = await db.handleGetMessages();
   res.render("index", { messages });
 };
 
@@ -12,14 +9,12 @@ const getForm = (req, res) => {
   res.render("form");
 };
 
-const postMessage = (req, res) => {
-  const { user, text } = req.body;
-  if (user && text) {
-    handlePostMessage({
-      user,
+const postMessage = async (req, res) => {
+  const { username, text } = req.body;
+  if (username && text) {
+    await db.handlePostMessage({
+      username,
       text,
-      added: new Date(),
-      id: messages.length + 1,
     });
     res.redirect("/");
   } else {
@@ -27,11 +22,11 @@ const postMessage = (req, res) => {
   }
 };
 
-const getDetails = (req, res) => {
+const getDetails = async (req, res) => {
   const messageId = Number(req.params.id);
   console.log("Requested message ID:", messageId);
   if (messageId) {
-    const message = handleGetMessageDetails(messageId);
+    const message = await db.handleGetMessageDetails(messageId);
     console.log("Retrieved message:", message);
     if (message) {
       res.render("details", { message });
