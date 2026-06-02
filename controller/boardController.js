@@ -1,3 +1,4 @@
+const { body, validationResult, matchedData } = require("express-validator");
 const db = require("../model/queries");
 
 const getHome = async (req, res) => {
@@ -8,19 +9,29 @@ const getHome = async (req, res) => {
 const getForm = (req, res) => {
   res.render("form");
 };
-
-const postMessage = async (req, res) => {
-  const { username, text } = req.body;
-  if (username && text) {
-    await db.handlePostMessage({
-      username,
-      text,
-    });
-    res.redirect("/");
-  } else {
-    res.status(400).send("User name and message are required.");
-  }
-};
+const validateValues = [
+  body("username")
+    .notEmpty()
+    .withMessage("Please enter a valid username")
+    .trim(),
+  body("text").optional({ values: "falsy" }).trim(),
+];
+const postMessage = [
+  validateValues,
+  async (req, res) => {
+    const error = validationResult(req);
+    if (error.isEmpty()) {
+      const { username, text } = matchedData(req);
+      await db.handlePostMessage({
+        username,
+        text,
+      });
+      res.redirect("/");
+    } else {
+      res.status(400).send("User name are required.");
+    }
+  },
+];
 
 const getDetails = async (req, res) => {
   const messageId = Number(req.params.id);
