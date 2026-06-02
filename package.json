@@ -6,7 +6,7 @@
     "build":"node model/migrate.js",
     "start": "node index.js",
     "watch": "node --env-file=.env.dev --watch index.js",
-    "migrate": "node --env-file=.env.dev model/seed.js"
+    "migrate": "node --env-file=.env.dev model/migrate.js"
   },
   "type": "commonjs",
   "main": "index.js",
