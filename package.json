@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "build":"node model/migrate.js",
     "start": "node index.js",
     "watch": "node --env-file=.env.dev --watch index.js",
-    "seed": "node --env-file=.env.dev model/seed.js",
-    "seed:prod": "node --env-file=.env.prod seed/seed.js"
+    "migrate": "node --env-file=.env.dev model/seed.js"
   },
   "type": "commonjs",
   "main": "index.js",
