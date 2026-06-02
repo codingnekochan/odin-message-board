@@ -20,7 +20,6 @@ async function main() {
   await client.query(createDBQuery);
   await client.end();
   console.log("Done");
-  process.exit()
 }
 
 main();

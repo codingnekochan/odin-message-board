@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build":"node model/migrate.js",
-    "start": "node index.js",
+    "start": "node model/migrate.js && node index.js",
     "watch": "node --env-file=.env.dev --watch index.js",
     "migrate": "node --env-file=.env.dev model/migrate.js"
   },
